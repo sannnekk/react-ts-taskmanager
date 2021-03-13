@@ -12,14 +12,16 @@ function App(): React.ReactElement {
 
         if (!destination) return;
 
-        if (source.droppableId == destination.droppableId) {
+        if (source.droppableId === destination.droppableId) {
 			state.columns[+destination.droppableId].updateList(
 				source.index,
 				destination.index
 			);
         } else {
 			let tmp = state.columns[+source.droppableId].list[source.index];
-			state.columns[+source.droppableId].removeTask(source.index);
+			state.columns[+source.droppableId].removeTask(
+				tmp.getId()
+			);
 			state.columns[+destination.droppableId].addTask(tmp, destination.index);
 		}
     };

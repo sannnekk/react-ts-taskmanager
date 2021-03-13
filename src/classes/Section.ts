@@ -37,7 +37,7 @@ export default class Section {
     addTask(task: Task, index: number = -1) {
         if (task === null) return;
 
-        if (index == -1) {
+        if (index === -1) {
             this.list.push(task);
             this.newTask = new Task("", "");
         } else {

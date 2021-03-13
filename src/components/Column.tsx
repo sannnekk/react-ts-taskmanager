@@ -4,7 +4,7 @@ import Button from './primitives/Button';
 import Input from './primitives/Input';
 import ListItem from './primitives/ListItem';
 import TextArea from './primitives/TextArea';
-import { DragDropContext, Droppable, Draggable, DropResult } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 
 interface Properties {
     header: string;
@@ -39,16 +39,16 @@ function Column(props: Properties): React.ReactElement {
                     {
                         props.list.map((task: Task, i: number) => 
                             <Draggable draggableId={ task.getId().toString() }
-                                        key={ task.getId().toString() }
-                                        index={ i }
-                                        {...droppableArgs.droppableProps}>
+                                       key={ task.getId().toString() }
+                                       index={ i }
+                                       {...droppableArgs.droppableProps}>
                                 { (draggableProps) => (
                                     <ListItem task={ task } 
-                                                number={ i + 1 }
-                                                onRemove={ (id) => props.onTaskRemove(id) } 
-                                                forwardedRef={ draggableProps.innerRef }
-                                                draggableProps={ draggableProps.draggableProps }
-                                                dragHandleProps={ draggableProps.dragHandleProps! } />
+                                              number={ i + 1 }
+                                              onRemove={ (id) => props.onTaskRemove(id) } 
+                                              forwardedRef={ draggableProps.innerRef }
+                                              draggableProps={ draggableProps.draggableProps }
+                                              dragHandleProps={ draggableProps.dragHandleProps! } />
                                 ) }
                             </Draggable>
                         )
