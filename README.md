@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Task Manager TS app for the Interview 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This time everuthing works, especially Drag&Drop, even between columns
 
 ## Available Scripts
 
