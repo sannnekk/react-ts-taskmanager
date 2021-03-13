@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import './App.css';
+import Section from './classes/Section';
 import Column from './components/Column';
 import Button from './components/primitives/Button';
 import Input from './components/primitives/Input';
@@ -13,16 +14,25 @@ function App(): React.ReactElement {
         if (!destination) return;
 
         if (source.droppableId === destination.droppableId) {
-			state.columns[+destination.droppableId].updateList(
+			state.columns.filter(col => {
+				return col.getId() === +destination.droppableId;
+			})[0].updateList(
 				source.index,
 				destination.index
 			);
         } else {
-			let tmp = state.columns[+source.droppableId].list[source.index];
-			state.columns[+source.droppableId].removeTask(
+			let sourceColumn: Section = state.columns.filter(col => {
+				return col.getId() === +source.droppableId;
+			})[0];
+			let destinationColumn: Section = state.columns.filter(col => {
+				return col.getId() === +destination.droppableId;
+			})[0];
+
+			let tmp = sourceColumn.list[source.index];
+			sourceColumn.removeTask(
 				tmp.getId()
 			);
-			state.columns[+destination.droppableId].addTask(tmp, destination.index);
+			destinationColumn.addTask(tmp, destination.index);
 		}
     };
 	return (

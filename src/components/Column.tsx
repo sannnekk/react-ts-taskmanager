@@ -30,44 +30,46 @@ function Column(props: Properties): React.ReactElement {
     }
 
     return (
-        <Droppable droppableId={ props.itemId.toString() }>
-            { (droppableArgs) => (
-                <ul className="collection with-header"
-                    ref={ droppableArgs.innerRef }
-                    { ...droppableArgs.droppableProps }>
-                    <li className="collection-header list"><h4>{ props.header }</h4></li>
-                    {
-                        props.list.map((task: Task, i: number) => 
-                            <Draggable draggableId={ task.getId().toString() }
-                                       key={ task.getId().toString() }
-                                       index={ i }
-                                       {...droppableArgs.droppableProps}>
-                                { (draggableProps) => (
-                                    <ListItem task={ task } 
-                                              number={ i + 1 }
-                                              onRemove={ (id) => props.onTaskRemove(id) } 
-                                              forwardedRef={ draggableProps.innerRef }
-                                              draggableProps={ draggableProps.draggableProps }
-                                              dragHandleProps={ draggableProps.dragHandleProps! } />
-                                ) }
-                            </Draggable>
-                        )
-                    }
-                    { droppableArgs.placeholder }
-                    <div className="add-task p-default">
-                        <h5>Add new Task</h5>
-                        <Input placeholder="Task name"
-                            value={ props.newTask.name }
-                            onChange={ text => onChangeAddFormName(text) }/>
-                        <TextArea placeholder="Description"
-                                value={ props.newTask.description }
-                                onChange={ text => onChangeAddFormDescription(text) }/>
-                        <Button text="Add" classes="" onClick={() => props.onTaskAdd(props.newTask) }/> <br/><br/>
-                        <Button text="Remove column" classes="red" onClick={ () => props.onColumnRemove(props.itemId) }/>
-                    </div>
-                </ul>
-                ) }
-        </Droppable>
+        <>
+            <h4 className="collection-header list p-default">{ props.header }</h4>
+            <Droppable droppableId={ props.itemId.toString() }>
+                { (droppableArgs) => (
+                    <ul className="collection with-header"
+                        ref={ droppableArgs.innerRef }
+                        { ...droppableArgs.droppableProps }>
+                        {
+                            props.list.map((task: Task, i: number) => 
+                                <Draggable draggableId={ task.getId().toString() }
+                                        key={ task.getId().toString() }
+                                        index={ i }
+                                        {...droppableArgs.droppableProps}>
+                                    { (draggableProps) => (
+                                        <ListItem task={ task } 
+                                                number={ i + 1 }
+                                                onRemove={ (id) => props.onTaskRemove(id) } 
+                                                forwardedRef={ draggableProps.innerRef }
+                                                draggableProps={ draggableProps.draggableProps }
+                                                dragHandleProps={ draggableProps.dragHandleProps! } />
+                                    ) }
+                                </Draggable>
+                            )
+                        }
+                        { droppableArgs.placeholder }
+                        <div className="add-task p-default">
+                            <h5>Add new Task</h5>
+                            <Input placeholder="Task name"
+                                value={ props.newTask.name }
+                                onChange={ text => onChangeAddFormName(text) }/>
+                            <TextArea placeholder="Description"
+                                    value={ props.newTask.description }
+                                    onChange={ text => onChangeAddFormDescription(text) }/>
+                            <Button text="Add" classes="" onClick={() => props.onTaskAdd(props.newTask) }/> <br/><br/>
+                            <Button text="Remove column" classes="red" onClick={ () => props.onColumnRemove(props.itemId) }/>
+                        </div>
+                    </ul>
+                    ) }
+            </Droppable>
+        </>
     )
 };
 
